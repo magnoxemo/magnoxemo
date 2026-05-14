@@ -8,15 +8,11 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 [lang="bn"] {
-  font-family:
-    "Bangla Sangam MN",
-    "Noto Sans Bengali",
-    "Galvji",
-    sans-serif;
+  font-family: "Hind Siliguri", "Bangla Sangam MN", "Noto Sans Bengali", "Galvji", sans-serif;
   font-size: 18px;
   letter-spacing: -0.015em;
   line-height: 1.65;
@@ -161,6 +157,87 @@
     color: var(--ink-mute);
     writing-mode: vertical-rl; transform: rotate(180deg);
     align-self: start;
+  }
+
+  /* ============ HERO SLIDER ============ */
+  .hero-slider {
+    position: relative;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 60px;
+  }
+  .slides-track {
+    display: flex;
+    transition: transform 0.65s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  .hero-slider .slide {
+    min-width: 100%;
+    position: relative;
+    flex-shrink: 0;
+    margin: 0;
+  }
+  .hero-slider .slide img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.6);
+  }
+  .hero-slider figcaption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 3rem 2.5rem 2rem;
+    background: linear-gradient(to top, rgba(0,0,0,.84) 0%, rgba(0,0,0,.38) 55%, transparent 100%);
+    color: #f0ece2;
+    font-size: 18px;
+    line-height: 1.85;
+    letter-spacing: 0.01em;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+  }
+  .hero-slider figcaption span { max-width: 680px; display: block; }
+  .slider-btn {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,.1);
+    border: 0.5px solid rgba(255,255,255,.28);
+    color: #fff;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, transform .2s;
+    z-index: 10;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    line-height: 1;
+  }
+  .slider-btn:hover {
+    background: rgba(255,255,255,.24);
+    transform: translateY(-50%) scale(1.08);
+  }
+  .slider-btn.prev { left: 16px; }
+  .slider-btn.next { right: 16px; }
+  .slider-dots {
+    position: absolute;
+    bottom: 16px; right: 18px;
+    display: flex; gap: 7px;
+    z-index: 10;
+  }
+  .slider-dots .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.35);
+    cursor: pointer;
+    transition: background .25s, transform .25s;
+  }
+  .slider-dots .dot.active {
+    background: #fff;
+    transform: scale(1.35);
   }
 
   /* ============ EPIGRAPH ============ */
@@ -371,31 +448,6 @@
   }
   .more-link:hover { color: var(--accent); border-color: var(--accent); }
 
-  /* ============ GALLERY ============ */
-  .gallery {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1.2fr;
-    gap: 24px;
-    margin-top: 80px;
-  }
-  .gallery figure { margin: 0; }
-  .gallery .slide {
-    aspect-ratio: 4/3;
-    border: 1px solid var(--rule);
-    border-radius: 2px;
-    overflow: hidden;
-    position: relative;
-  }
-  .gallery .slide svg { width: 100%; height: 100%; display: block; }
-  .gallery figcaption {
-    margin-top: 12px;
-    font-family: var(--mono); font-size: 11px;
-    letter-spacing: .12em; text-transform: uppercase;
-    color: var(--ink-mute);
-    display: flex; justify-content: space-between;
-  }
-  .gallery figcaption strong { color: var(--ink); font-weight: 500; }
-
   /* ============ FOOTER ============ */
   footer {
     padding: 100px 0 50px;
@@ -474,9 +526,10 @@
     .project { grid-template-columns: 60px 1fr; padding: 28px; gap: 18px; }
     .project-logo { width: 60px; height: 60px; }
     .project-logo svg { width: 32px; height: 32px; }
-    .gallery { grid-template-columns: 1fr; }
     .foot-grid { grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 50px; }
     .copyright { flex-direction: column; }
+    .hero-slider .slide img { height: 300px; }
+    .hero-slider figcaption { font-size: 15px; padding: 2rem 1.5rem 1.5rem; }
   }
 </style>
 </head>
@@ -502,20 +555,36 @@
       <span>Last Updated · April 2026</span>
     </div>
 
-    <div class="gallery" style="grid-template-columns: 1fr;">
-  <figure>
-    <div class="slide">
-      <img src="ramers_cove.jpg" alt="Ramers Cove"
-           style="width: 100%; height: 100%; object-fit: cover; display: block;">
+    <!-- HERO SLIDER (replaces the two stacked figures) -->
+    <div class="hero-slider rise d2" id="heroSlider">
+      <div class="slides-track" id="slidesTrack">
+
+        <figure class="slide">
+          <img src="assests/ramers_cove.jpg" alt="Ramers Cove">
+          <figcaption>
+            <span lang="bn">তোমার আকাশ ফুঁড়ে মেঘ ঝইড়া পড়ে। নতুন বৃষ্টির পানি পাইলে মাটি থাইকা যেমন একটা সুন্দর গন্ধ বাইর হয়,
+            আমার ও তোমার ভিজা কোঁকড়া চুল দেইখা সেইরকম সুখ লাগে। আইচ্ছা বৃষ্টিতে সবুজ রঙা শাড়ি পরা তোমার চোখের কাজল
+            ধুয়ে কি আরেকটা সোমেশ্বরী তৈরি হয়?</span>
+          </figcaption>
+        </figure>
+
+        <figure class="slide">
+          <img src="assests/bike.jpg" alt="Bike Story">
+          <figcaption>
+            <span lang="bn">জীবন ডুবে গেছে নতুন সারেং এর। আল্লাহ কেমনে তারে বাড়িত আইন্না দিসে সে নিজেও জানে না। মাফলার কোনভাবে মুখে প্যাচাইয়া গাঙ্গের কাছাড়ের রাস্তা দিয়া বাজারত গেলে সরিষা শাক বিক্রেতা তারে বল্লো তার সাধের মানুষ, সে ডিঙ্গিতে থাকতেই আরেকজন তার সারেং বউ নিয়ে গেছে। সরিষা শাকে আর চ্যাপা শুটকির সাথে এখন আফসোস মিশায়ে খাইতে খাইতে পরের জাহাজের কথা ভাবতে ভাবতে মন হয় না জীবন যাইবে। যে সারেং বউ পাইল সে কি জানে বকুল ফুল সারেং বউয়ের প্রিয় ফুল? কিংবা কাজল মাখা চোখে চাইলে তার কি মনে হয় আল্লাহ এখনই এই দুনিয়ায় বৃষ্টি পাঠাইব?</span>
+          </figcaption>
+        </figure>
+
+      </div>
+
+      <button class="slider-btn prev" id="sliderPrev" aria-label="Previous slide">←</button>
+      <button class="slider-btn next" id="sliderNext" aria-label="Next slide">→</button>
+
+      <div class="slider-dots" id="sliderDots">
+        <span class="dot active" data-i="0"></span>
+        <span class="dot" data-i="1"></span>
+      </div>
     </div>
-    <figcaption>
-      <strong></strong>
-      <span style="font-size: 20px;" lang="bn">তোমার আকাশ ফুঁড়ে মেঘ ঝইড়া পড়ে। নতুন বৃষ্টির পানি পাইলে মাটি থাইকা যেমন একটা সুন্দর গন্ধ বাইর হয়,
-         আমার ও তোমার ভিজা কোঁকড়া চুল দেইখা সেইরকম সুখ লাগে। আইচ্ছা বৃষ্টিতে সবুজ রঙা শাড়ি পরা তোমার চোখের কাজল
-         ধুয়ে কি আরেকটা সোমেশ্বরী তৈরি হয়?</span>
-    </figcaption>
-  </figure>
-</div>
 
     <h1 class="bigname rise d2">
       Ebny Walid Ahammed<em>.</em>
@@ -543,19 +612,18 @@
   <div class="wrap">
     <div class="section-head">
       <span class="section-num">01 / About</span>
-      <h2 class="section-title" >A few <em>notes</em><br>on who I am.</h2>
+      <h2 class="section-title">A few <em>notes</em><br>on who I am.</h2>
     </div>
 
     <div class="about-grid">
       <aside class="portrait">
         <div class="portrait-frame">
-          <img src="me_sunset.jpg"
-               alt="Portrait of Ebny Walid Ahammed">
+          <img src="assests/me_sunset.jpg" alt="Portrait of Ebny Walid Ahammed">
         </div>
         <div class="portrait-tag">
-          <span style="font-size: 11px;" lang="bn"> মানুষ কখন ভাবে যে তার বয়স হইছে?
-             নদের পাঁড়ে বইসা চা খাইতে খাইতে দেখলেন কিছু বুঝার আগেই ডিঙ্গি আরেক পাঁড়ে। 
-             লেবু চা ফুঁড়ায়ে আসে। মনে হয় এই নতুন বানানো বেঞ্চি থেকে উইঠা যাওয়া লাগবে। বাদ গেলো আপনার এই বেলার গল্প। 
+          <span style="font-size: 11px;" lang="bn"> মানুষ কখন ভাবে যে তার বয়স হইছে?
+             নদের পাঁড়ে বইসা চা খাইতে খাইতে দেখলেন কিছু বুঝার আগেই ডিঙ্গি আরেক পাঁড়ে। 
+             লেবু চা ফুঁড়ায়ে আসে। মনে হয় এই নতুন বানানো বেঞ্চি থেকে উইঠা যাওয়া লাগবে। বাদ গেলো আপনার এই বেলার গল্প। 
             "আপনার এই গল্প তো শুনতেই হইছে অনেক বার। আর কতো একই আলাপ কইবেন?"
             "আমি কি করবো? আইন্নেরে আমার গল্প শুনাইতে যে ভালো লাগে" </span>
         </div>
@@ -747,6 +815,42 @@
     </div>
   </div>
 </footer>
+
+<script>
+  const track  = document.getElementById('slidesTrack');
+  const dots   = [...document.querySelectorAll('#sliderDots .dot')];
+  let cur = 0, total = 2, isAnim = false;
+
+  function goTo(n) {
+    if (isAnim) return;
+    isAnim = true;
+    cur = (n + total) % total;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+    setTimeout(() => isAnim = false, 680);
+  }
+
+  document.getElementById('sliderPrev').addEventListener('click', () => goTo(cur - 1));
+  document.getElementById('sliderNext').addEventListener('click', () => goTo(cur + 1));
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.i)));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  goTo(cur - 1);
+    if (e.key === 'ArrowRight') goTo(cur + 1);
+  });
+
+  let autoplay = setInterval(() => goTo(cur + 1), 5000);
+  const wrap = document.getElementById('heroSlider');
+  wrap.addEventListener('mouseenter', () => clearInterval(autoplay));
+  wrap.addEventListener('mouseleave', () => { autoplay = setInterval(() => goTo(cur + 1), 5000); });
+
+  let touchStartX = 0;
+  wrap.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  wrap.addEventListener('touchend',   e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) goTo(diff > 0 ? cur + 1 : cur - 1);
+  });
+</script>
 
 </body>
 </html>
